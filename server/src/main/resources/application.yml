@@ -1,0 +1,6 @@
+---
+spring:
+  profile: local
+
+management.endpoints.web.exposure.include: "*"
+# logging.level.org.hibernate.SQL: DEBUG

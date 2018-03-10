@@ -10,7 +10,7 @@ Requirements:
 * maven (tested with 3.3.9 and 3.5.3)
 
 Java 9 is currently **not** supported - the application will neither run nor build. All the necessary hoops that need
-jumping through to get this working (see e.g. [here](https://blog.frankel.ch/migrating-to-java-9/1/)) with no real
+jumping through to get this working (see e.g. [here] (https://blog.frankel.ch/migrating-to-java-9/1/)) with no real
 benefit were the deciding factors. Once Spring Boot, Maven and Hibernate have fully committed to Java9, my opinion may change.
 
 ### Building
