@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class TemperatureMeasurementTest {
 
-	private static final String JSON  = "{\"id\":66,\"timestamp\":\"2018-03-10T15:27:29.877Z\",\"name\":\"junit\",\"value\":24.56}";
+	private static final String JSON  = "{\"id\":66,\"timestamp\":\"2018-03-10T15:27:29.877Z\",\"name\":\"junit\",\"value\":24.56,\"unit\":\"CELSIUS\"}";
 	
 	private TemperatureMeasurement measurement;
 	
@@ -20,6 +20,11 @@ public class TemperatureMeasurementTest {
 		measurement.setName("junit");
 		measurement.setTimestamp(Instant.parse("2018-03-10T15:27:29.877Z"));
 		measurement.setValue(24.56);
+	}
+	
+	@Test
+	public void testDefaultValues() {
+		assertEquals(Unit.CELSIUS, measurement.getUnit());
 	}
 	
 	@Test

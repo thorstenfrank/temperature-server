@@ -13,7 +13,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Simple entity.
+ * Temperature measurement point.
  * 
  * @author thorsten
  *
@@ -24,19 +24,41 @@ import lombok.ToString;
 @ToString
 @Entity
 public class TemperatureMeasurement {
-
+	
+	/** */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	/** */
 	private Instant timestamp = Instant.now();
 
+	/** */
 	private String name;
 	
+	/** */
 	private double value;
 	
+	/** TEmperature unit - defaults to {@link Unit#CELSIUS}. */
+	private Unit unit = Unit.CELSIUS;
+	
+	/**
+	 * 
+	 * @param name
+	 * @param value
+	 */
 	public TemperatureMeasurement(String name, double value) {
+		this(name, value, Unit.CELSIUS);
+	}
+
+	/**
+	 * @param name
+	 * @param value
+	 * @param unit
+	 */
+	public TemperatureMeasurement(String name, double value, Unit unit) {
 		this.name = name;
 		this.value = value;
+		this.unit = unit;
 	}
 }
