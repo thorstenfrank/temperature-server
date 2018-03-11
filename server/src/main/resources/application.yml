@@ -31,5 +31,6 @@ spring:
 spring:
   profiles: local
 
+vaadin.servlet.productionMode: false
 management.endpoints.web.exposure.include: "*"
 # logging.level.org.hibernate.SQL: DEBUG

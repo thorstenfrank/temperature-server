@@ -1,11 +1,11 @@
 package de.tfsw.temp.temperature.server.ui;
 
+import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.themes.ValoTheme;
 
 import de.tfsw.temp.temperature.server.TemperatureRepository;
 
@@ -16,7 +16,7 @@ import de.tfsw.temp.temperature.server.TemperatureRepository;
  *
  */
 @SpringUI
-//@Theme("temperature")
+@Theme("temperature")
 @Title("Temperature Measurements")
 public class TemperatureUI extends UI {
 	
@@ -35,7 +35,7 @@ public class TemperatureUI extends UI {
 	@Override
     protected void init(VaadinRequest request) {
 		setSizeFull();
-		addStyleName(ValoTheme.UI_WITH_MENU);
+		//addStyleName(ValoTheme.UI_WITH_MENU);
 		
 		buildMainLayout();
     }

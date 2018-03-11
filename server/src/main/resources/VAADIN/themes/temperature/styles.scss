@@ -1,0 +1,5 @@
+@import "temperature.scss";
+
+.temperature {
+  @include temperature;
+}

@@ -6,6 +6,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.themes.ValoTheme;
 
 import de.tfsw.temp.temperature.server.TemperatureMeasurement;
 import de.tfsw.temp.temperature.server.TemperatureRepository;
@@ -39,7 +40,10 @@ public class Overview extends Panel implements View {
 		
 		HorizontalLayout header = new HorizontalLayout();
 		header.setSizeFull();
-		header.addComponent(new Label("CURRENT TEMPERATURES"));
+		
+		Label headerLabel = new Label("CURRENT TEMPERATURES");
+		headerLabel.addStyleName(ValoTheme.LABEL_H1);
+		header.addComponent(headerLabel);
 		
 		root.addComponent(header);
 		
@@ -60,6 +64,7 @@ public class Overview extends Panel implements View {
 		measurementLayout.setSizeUndefined();
 		
 		Label nameLabel = new Label(measurement.getName());
+		nameLabel.addStyleName(ValoTheme.LABEL_BOLD);
 		measurementLayout.addComponent(nameLabel);
 		
 		Label currentTemp = new Label(measurement.getValue() + " " + measurement.getUnit().getShortName());

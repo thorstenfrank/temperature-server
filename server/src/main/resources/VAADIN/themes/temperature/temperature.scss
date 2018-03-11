@@ -1,0 +1,7 @@
+@import "../valo/valo.scss";
+
+$v-background-color: #777;
+
+@mixin temperature {
+    @include valo;
+}
