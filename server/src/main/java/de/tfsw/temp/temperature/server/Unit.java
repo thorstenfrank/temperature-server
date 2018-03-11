@@ -2,5 +2,20 @@ package de.tfsw.temp.temperature.server;
 
 public enum Unit {
 
-	CELSIUS, FAHRENHEIT;
+	CELSIUS("C"), FAHRENHEIT("F");
+	
+	private String shortName;
+
+	/**
+	 * @param shortName
+	 */
+	private Unit(String shortName) {
+		this.shortName = shortName;
+	}
+
+	public String getShortName() {
+		return shortName;
+	}
+	
+	
 }

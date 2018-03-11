@@ -55,7 +55,7 @@ which will return a JSON like this:
 
 You can view all stored measurements using `HTTP GET /temperature` which will return the same JSON structure.
 
-Alternatively you can use your browser and just go to `http://localhost:8080/` to see all data points in a table.
+Alternatively you can use your browser and just go to `http://localhost:8080/` to see the current temperatures.
 
 ## Data Storage Options
 
