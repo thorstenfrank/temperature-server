@@ -37,14 +37,16 @@ public class TemperatureEndpointTest {
 	
 	@Test
 	public void testAddMeasurement() throws Exception {
-		final String name = "Klo";
+		final String name = "Kitchen";
 		final double value = 23.75;
+		
 		mvc
 			.perform(post("/temperature/" + name + "?value=" + value))
 			.andExpect(status().isOk());
-				
+		
 		TemperatureMeasurement saved = repo.findFirstByNameOrderByTimestampDesc(name);
 		assertEquals(value, saved.getValue(), 0);
+		assertEquals(Unit.CELSIUS, saved.getUnit());
 		
 		assertEquals(3, repo.findAllNames().size());
 		
@@ -54,8 +56,30 @@ public class TemperatureEndpointTest {
 	}
 	
 	@Test
-	public void testGetCurrent() throws Exception {
+	public void testAddMeasurementFahrenheit() throws Exception {
+		final String name = "Outside";
+		final double value = 66.342;
+		
+		mvc
+			.perform(post("/temperature/" + name + "?value=" + value + "&unit=FAHRENHEIT"))
+			.andExpect(status().isOk());
+		
+		TemperatureMeasurement saved = repo.findFirstByNameOrderByTimestampDesc(name);
+		assertEquals(value, saved.getValue(), 0);
+		assertEquals(Unit.FAHRENHEIT, saved.getUnit());
+	}
+	
+	@Test
+	public void testGetAll() throws Exception {
 		MvcResult result = mvc.perform(get("/temperature")).andExpect(status().isOk()).andReturn();
+		TemperatureMeasurement[] measurements = TestHelper.jsonMapper().readValue(
+				result.getResponse().getContentAsString(), TemperatureMeasurement[].class);
+		assertEquals(5, measurements.length);
+	}
+	
+	@Test
+	public void testGetCurrent() throws Exception {
+		MvcResult result = mvc.perform(get("/temperature/current")).andExpect(status().isOk()).andReturn();
 		TemperatureMeasurement[] measurements = TestHelper.jsonMapper().readValue(
 				result.getResponse().getContentAsString(), TemperatureMeasurement[].class);
 		assertEquals(2, measurements.length);
@@ -74,9 +98,9 @@ public class TemperatureEndpointTest {
 	}
 	
 	private void assertMeasurementEquals(final TemperatureMeasurement expected, final TemperatureMeasurement actual) {
-		assertEquals(expected.getId(), actual.getId());
 		assertEquals(expected.getName(), actual.getName());
 		assertEquals(expected.getTimestamp(), actual.getTimestamp());
 		assertEquals(expected.getValue(), actual.getValue(), 0);
+		assertEquals(expected.getUnit(), actual.getUnit());
 	}
 }

@@ -32,17 +32,35 @@ public class TemperatureEndpoint {
 			method = RequestMethod.POST)
 	public void addMeasurement(
 			@PathVariable("name") final String name, 
-			@RequestParam("value") final double value) {
+			@RequestParam("value") final double value,
+			@RequestParam(name = "unit", required = false) final Unit unit) {
 		
-		repo.save(new TemperatureMeasurement(name, value));
+		TemperatureMeasurement addMe = new TemperatureMeasurement(name, value);
+		if (unit != null) {
+			addMe.setUnit(unit);
+		}
+		
+		repo.save(addMe);
 	}
 	
 	/**
 	 * 
-	 * @return all current measurements by name
+	 * @return all known measurements
 	 */
 	@RequestMapping(
 			value = "/temperature",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody public List<TemperatureMeasurement> getAllMeasurements() {
+		return repo.findAll();
+	}
+	
+	/**
+	 * 
+	 * @return the most recent measurement for each name
+	 */
+	@RequestMapping(
+			value = "/temperature/current",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody public List<TemperatureMeasurement> getCurrentMeasurements() {
