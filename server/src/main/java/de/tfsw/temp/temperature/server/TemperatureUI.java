@@ -41,8 +41,8 @@ public class TemperatureUI extends UI {
 		VerticalLayout mainLayout = new VerticalLayout(actions, grid);
 		setContent(mainLayout);
 		
-		grid.setHeight(300, Unit.PIXELS);
-		grid.setColumns("name", "timestamp", "value");
+		//grid.setHeight(300, Unit.PIXELS);
+		grid.setColumns("name", "timestamp", "value", "unit");
 		
 		filter.setPlaceholder("Filter by name");
 		filter.setValueChangeMode(ValueChangeMode.LAZY);

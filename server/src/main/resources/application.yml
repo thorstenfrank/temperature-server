@@ -1,6 +1,35 @@
+# Default settings
+
+vaadin.servlet.productionMode: true
+
+# Flyway DB migrations are disabled by default for in-memory H2 support
+# When using other datasources, this needs to be enabled specifically
+spring:
+  flyway.enabled: false
+
+# Postgres DB
 ---
 spring:
-  profile: local
+  profiles: postgres
+  
+  # disabling feature detection - just preventing warnings and unnecessary stack traces in the logs
+  jpa:
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  
+  datasource:
+    url: jdbc:postgresql://192.168.11.18:5432/temperature
+    username: postgres
+    password: postgres
+
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration/postgres
+
+# Local development options
+---
+spring:
+  profiles: local
 
 management.endpoints.web.exposure.include: "*"
 # logging.level.org.hibernate.SQL: DEBUG
