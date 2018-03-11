@@ -1,5 +1,6 @@
 package de.tfsw.temp.temperature.server;
 
+import java.time.Instant;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,6 +24,13 @@ public interface TemperatureRepository extends JpaRepository<TemperatureMeasurem
 	 * @return a list of measurement points
 	 */
 	List<TemperatureMeasurement> findByName(@Param("name") String name);
+	
+	/**
+	 * @param name
+	 * @param timestamp
+	 * @return all measurements for a name after a specific timestmap
+	 */
+	List<TemperatureMeasurement> findByNameAndTimestampAfter(@Param("name") String name, @Param("timestamp") Instant timestamp);
 	
 	/**
 	 * Returns the latest measurement (i.e. the one with the most recent timestamp) 

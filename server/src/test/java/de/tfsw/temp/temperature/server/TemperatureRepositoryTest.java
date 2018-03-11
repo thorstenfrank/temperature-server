@@ -3,6 +3,8 @@ package de.tfsw.temp.temperature.server;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 import org.junit.Before;
@@ -48,5 +50,13 @@ public class TemperatureRepositoryTest {
 		TemperatureMeasurement recent2 = repo.findFirstByNameOrderByTimestampDesc(TestHelper.BEDROOM);
 		assertEquals(TestHelper.BEDROOM, recent2.getName());
 		assertEquals(TestHelper.BEDROOM3.getValue(), recent2.getValue(), 0);
+	}
+	
+	@Test
+	public void testFindByNameAfterTimestamp() {
+		assertEquals(3, repo.findByNameAndTimestampAfter(TestHelper.BEDROOM, Instant.now().minus(Duration.ofHours(24))).size());
+		assertEquals(2, repo.findByNameAndTimestampAfter(TestHelper.BEDROOM, TestHelper.BEDROOM1.getTimestamp()).size());
+		assertEquals(1, repo.findByNameAndTimestampAfter(TestHelper.BEDROOM, TestHelper.BEDROOM2.getTimestamp()).size());
+		assertEquals(0, repo.findByNameAndTimestampAfter(TestHelper.BEDROOM, TestHelper.BEDROOM3.getTimestamp()).size());
 	}
 }
