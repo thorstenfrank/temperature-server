@@ -7,7 +7,7 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 
-import de.tfsw.temp.temperature.server.TemperatureRepository;
+import de.tfsw.temp.temperature.server.TemperatureService;
 
 /**
  * Vaadin UI.
@@ -22,14 +22,14 @@ public class TemperatureUI extends UI {
 	
 	private static final long serialVersionUID = 1L;
 
-	private TemperatureRepository repo;
+	private TemperatureService service;
 	
 	/**
 	 * 
 	 * @param repo
 	 */
-	public TemperatureUI(TemperatureRepository repo) {
-		this.repo = repo;
+	public TemperatureUI(TemperatureService service) {
+		this.service = service;
 	}
 
 	@Override
@@ -47,6 +47,6 @@ public class TemperatureUI extends UI {
 		layout.setSizeFull();
 		layout.setSpacing(false);
 		
-		layout.addComponent(new Overview(repo));
+		layout.addComponent(new Overview(service));
 	}
 }
