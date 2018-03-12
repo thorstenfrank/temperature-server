@@ -1,7 +1,6 @@
 package de.tfsw.temp.temperature.server;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -15,18 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TemperatureEndpoint {
 
-	private TemperatureRepository repo;
+	private TemperatureService service;
 		
 	@Autowired
-	public TemperatureEndpoint(TemperatureRepository repo) {
-		this.repo = repo;
+	public TemperatureEndpoint(TemperatureService service) {
+		this.service = service;
 	}
 	
-	/**
-	 * 
-	 * @param measurement
-	 * @return
-	 */
 	@RequestMapping(
 			value = "/temperature/{name}",
 			method = RequestMethod.POST)
@@ -35,12 +29,11 @@ public class TemperatureEndpoint {
 			@RequestParam("value") final double value,
 			@RequestParam(name = "unit", required = false) final Unit unit) {
 		
-		TemperatureMeasurement addMe = new TemperatureMeasurement(name, value);
-		if (unit != null) {
-			addMe.setUnit(unit);
+		if (unit == null) {
+			service.addMeasurement(name, value);
+		} else {
+			service.addMeasurement(name, value, unit);
 		}
-		
-		repo.save(addMe);
 	}
 	
 	/**
@@ -52,7 +45,7 @@ public class TemperatureEndpoint {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody public List<TemperatureMeasurement> getAllMeasurements() {
-		return repo.findAll();
+		return service.getAllMeasurements();
 	}
 	
 	/**
@@ -64,8 +57,6 @@ public class TemperatureEndpoint {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody public List<TemperatureMeasurement> getCurrentMeasurements() {
-		return repo.findAllNames().stream()
-			.map(name -> repo.findFirstByNameOrderByTimestampDesc(name))
-			.collect(Collectors.toList());
+		return service.getCurrentMeasurements();
 	}
 }

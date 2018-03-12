@@ -30,7 +30,7 @@ public interface TemperatureRepository extends JpaRepository<TemperatureMeasurem
 	 * @param timestamp
 	 * @return all measurements for a name after a specific timestmap
 	 */
-	List<TemperatureMeasurement> findByNameAndTimestampAfter(@Param("name") String name, @Param("timestamp") Instant timestamp);
+	List<TemperatureMeasurement> findByNameAndTimestampBetween(String name, Instant from, Instant until);
 	
 	/**
 	 * Returns the latest measurement (i.e. the one with the most recent timestamp) 

@@ -15,8 +15,8 @@ class TestHelper {
 	static final String LIVINGROOM = "Living room";
 	
 	static final TemperatureMeasurement BEDROOM1 = new TemperatureMeasurement(BEDROOM, 12.5);
-	static final TemperatureMeasurement BEDROOM2 = new TemperatureMeasurement(BEDROOM, 13.75);
-	static final TemperatureMeasurement BEDROOM3 = new TemperatureMeasurement(BEDROOM, 14);
+	static final TemperatureMeasurement BEDROOM2 = new TemperatureMeasurement(BEDROOM, 14);
+	static final TemperatureMeasurement BEDROOM3 = new TemperatureMeasurement(BEDROOM, 13.75);
 	static final TemperatureMeasurement LIVINGROOM1 = new TemperatureMeasurement(LIVINGROOM, 17.87);
 	static final TemperatureMeasurement LIVINGROOM2 = new TemperatureMeasurement(LIVINGROOM, 18.53);
 	

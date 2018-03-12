@@ -93,7 +93,7 @@ public class TemperatureEndpointTest {
 		} else if (TestHelper.LIVINGROOM.equals(measurement.getName())) {
 			assertMeasurementEquals(TestHelper.LIVINGROOM2, measurement);
 		} else {
-			fail("Unknown measurement returned, expected Wohnzimmer or Schlafzimmer only: " + measurement);
+			fail("Unknown measurement returned, expected 'Bedroom' or 'Living' Room only: " + measurement);
 		}
 	}
 	
