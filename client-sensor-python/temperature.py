@@ -20,7 +20,7 @@ device_id = '28-a29133126461'
 server_url = "http://localhost:8080"
 
 # Checks temperature every n seconds
-measurement_interval = 5
+measurement_interval = 60
 
 # you shouldn't have to change these values
 device_file = '/sys/bus/w1/devices/' + device_id + '/w1_slave'
