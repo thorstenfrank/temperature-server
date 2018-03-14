@@ -38,7 +38,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<!-- H2 for local / in-memory persistence -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -51,12 +51,12 @@
 			<artifactId>postgresql</artifactId>
 			<!-- version>9.4.1212</version -->
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -67,11 +67,8 @@
 			<artifactId>vaadin-spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- Java9: need to add this explicitly because hibernate needs it
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-		</dependency>-->
+		<!-- Java9: need to add this explicitly because hibernate needs it <dependency> 
+			<groupId>javax.xml.bind</groupId> <artifactId>jaxb-api</artifactId> </dependency> -->
 
 
 		<!-- TEST -->
@@ -100,17 +97,29 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<!-- Java9: see https://issues.apache.org/jira/browse/SUREFIRE-1424
-			
-			COMBINE THE TWO DASHES in front of add-modules if you uncomment this!!!
+
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<argLine>- -add-modules java.base</argLine>
-				</configuration>
-			</plugin> -->
+				<groupId>com.vaadin</groupId>
+				<artifactId>vaadin-maven-plugin</artifactId>
+				<version>${vaadin.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>clean</goal>
+							<goal>resources</goal>
+							<goal>update-theme</goal>
+							<goal>update-widgetset</goal>
+							<goal>compile-theme</goal>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+				<!-- Java9: see https://issues.apache.org/jira/browse/SUREFIRE-1424 COMBINE 
+					THE TWO DASHES in front of add-modules if you uncomment this!!! <plugin> 
+					<groupId>org.apache.maven.plugins</groupId> <artifactId>maven-surefire-plugin</artifactId> 
+					<configuration> <argLine>- -add-modules java.base</argLine> </configuration> 
+					</plugin> -->
 		</plugins>
 	</build>
 
