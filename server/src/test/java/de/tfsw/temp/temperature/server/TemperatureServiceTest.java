@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -96,12 +97,18 @@ public class TemperatureServiceTest {
 		Instant until = Instant.now();
 		Instant from = until.minus(Duration.ofHours(12));
 		
-		when(repoMock.findAllNames()).thenReturn(Arrays.asList(BEDROOM, LIVINGROOM));
+		final String singleName = "single";
+		final double value = 12;
+		
+		final TemperatureMeasurement singleMeasurement = new TemperatureMeasurement(singleName, value);
+		
+		when(repoMock.findAllNames()).thenReturn(Arrays.asList(BEDROOM, LIVINGROOM, singleName));
+		when(repoMock.findByNameAndTimestampBetween(singleName, from, until)).thenReturn(Collections.singletonList(singleMeasurement));
 		when(repoMock.findByNameAndTimestampBetween(BEDROOM, from, until)).thenReturn(Arrays.asList(BEDROOM1, BEDROOM2, BEDROOM3));
 		when(repoMock.findByNameAndTimestampBetween(LIVINGROOM, from, until)).thenReturn(Arrays.asList(LIVINGROOM1, LIVINGROOM2));
 		
 		List<MeasurementSummary> summary = service.getSummary(from, until);
-		assertEquals(2, summary.size());
+		assertEquals(3, summary.size());
 		
 		summary.forEach(s -> {
 			assertEquals(from, s.getFrom());
@@ -117,12 +124,21 @@ public class TemperatureServiceTest {
 				assertEquals(LIVINGROOM2.getValue(), s.getHigh(), 0);
 				assertEquals(LIVINGROOM2.getValue(), s.getCurrent(), 0);
 				assertEquals(18.2, s.getAverage(), 0);
-			} else {
+			} else if (singleName.equals(s.getName())) {
+				assertEquals(value, s.getLow(), 0);
+				assertEquals(value, s.getHigh(), 0);
+				assertEquals(value, s.getCurrent(), 0);
+				assertEquals(value, s.getAverage(), 0);
+			}
+			else {
 				fail("Unexpected measurement summary name: " + s.getName());
 			}
 		});
 		
 		verify(repoMock).findAllNames();
+		verify(repoMock).findByNameAndTimestampBetween(singleName, from, until);
+		verify(repoMock).findByNameAndTimestampBetween(BEDROOM, from, until);
+		verify(repoMock).findByNameAndTimestampBetween(LIVINGROOM, from, until);
 	}
 	
 	private void verifySave(final String name, final double value, final Unit unit) {

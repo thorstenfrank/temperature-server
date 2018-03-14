@@ -45,7 +45,7 @@ public class TemperatureService {
 		List<MeasurementSummary> summaries = new ArrayList<>();
 		
 		repo.findAllNames().forEach(name -> {
-			MeasurementSummary summary = buildSummary(repo.findByNameAndTimestampBetween(name, from, until));
+			MeasurementSummary summary = buildSummary(repo.findByNameAndTimestampBetween(name, from, until), from);
 			summary.setName(name);
 			summary.setFrom(from);
 			summary.setUntil(until);
@@ -55,10 +55,11 @@ public class TemperatureService {
 		return summaries;
 	}
 	
-	private MeasurementSummary buildSummary(List<TemperatureMeasurement> measurements) {
+	private MeasurementSummary buildSummary(List<TemperatureMeasurement> measurements, Instant from) {
 		MeasurementSummary summary = new MeasurementSummary();
+		Instant mostRecent = from.minusSeconds(1);
+		
 		if (measurements.size() > 0) {
-			Instant mostRecent = measurements.get(0).getTimestamp();
 			summary.setLow(measurements.get(0).getValue());
 			
 			double total = 0;
