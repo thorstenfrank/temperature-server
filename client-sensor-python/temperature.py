@@ -16,7 +16,8 @@ measurement_name = "Schlafzimmer"
 # get this from folder /sys/bus/w1/devices - should be something cryptic
 device_id = '28-a29133126461'
 
-server_url = "http://192.168.11.18:8805"
+# change this to wherever your temperature-server is running
+server_url = "http://localhost:8080"
 
 # Checks temperature every n seconds
 measurement_interval = 5
