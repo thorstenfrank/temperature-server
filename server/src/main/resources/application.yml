@@ -18,7 +18,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   
   datasource:
-    url: jdbc:postgresql://192.168.11.18:5432/temperature
+    url: jdbc:postgresql://localhost:5432/temperature
     username: postgres
     password: postgres
 
