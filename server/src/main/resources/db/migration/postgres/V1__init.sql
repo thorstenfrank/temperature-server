@@ -7,3 +7,5 @@ CREATE TABLE measurements
   value double precision NOT NULL,
   CONSTRAINT measurements_pkey PRIMARY KEY (id)
 );
+
+CREATE SEQUENCE hibernate_sequence START 1;

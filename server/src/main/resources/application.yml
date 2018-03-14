@@ -1,6 +1,6 @@
 # Default settings
 
-vaadin.servlet.productionMode: true
+#vaadin.servlet.productionMode: true
 
 # Flyway DB migrations are disabled by default for in-memory H2 support
 # When using other datasources, this needs to be enabled specifically
@@ -30,6 +30,9 @@ spring:
 ---
 spring:
   profiles: local
+
+loggging.level:
+  de.tfsw: DEBUG
 
 vaadin.servlet.productionMode: false
 management.endpoints.web.exposure.include: "*"
