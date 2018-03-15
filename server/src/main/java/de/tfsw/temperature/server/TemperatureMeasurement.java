@@ -63,4 +63,16 @@ public class TemperatureMeasurement {
 		this.value = value;
 		this.unit = unit;
 	}
+
+	/**
+	 *
+	 * @param name
+	 * @param value
+	 * @param timestamp
+	 */
+	public TemperatureMeasurement(String name, double value, Instant timestamp) {
+		this.name = name;
+		this.value = value;
+		this.timestamp = timestamp;
+	}
 }

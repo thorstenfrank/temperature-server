@@ -31,13 +31,14 @@ public class DetailGridView extends VerticalLayout implements View {
     }
 
     private void buildStaticContent() {
+        setSizeUndefined();
         nameLabel = new Label("Undefined");
         addComponent(nameLabel);
 
-        grid = new Grid<>();
-        grid.addColumn(TemperatureMeasurement::getValue).setCaption("Value");
-        grid.addColumn(TemperatureMeasurement::getTimestamp).setCaption("Timestamp");
-        grid.setSizeUndefined();
+        grid = new Grid<>(TemperatureMeasurement.class);
+//        grid.addColumn(TemperatureMeasurement::getValue).setCaption("Value");
+//        grid.addColumn(TemperatureMeasurement::getTimestamp).setCaption("Timestamp");
+        grid.setColumns("value", "timestamp");
         addComponent(grid);
 
         Button back = new Button("Back to overview...");
@@ -52,7 +53,6 @@ public class DetailGridView extends VerticalLayout implements View {
         Instant from = now.minus(Duration.ofHours(24));
 
         grid.setItems(service.getMeasurements(name, from, now));
-        grid.recalculateColumnWidths();
     }
 
     @Override
