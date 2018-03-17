@@ -27,6 +27,25 @@ spring:
     enabled: true
     locations: classpath:/db/migration/postgres
 
+# MariaDB / MySql
+---
+spring:
+  profiles: mariadb
+
+  jpa:
+    properties.hibernate.temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.MariaDBDialect
+
+  datasource:
+    url: jdbc:mysql://192.168.11.20:3307/temperature
+    username: temperature
+    password: temperature
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  flyway:
+    enabled: true
+    locations: classpath:/db/migration/mariadb
+
 # Local development options
 ---
 spring:

@@ -1,14 +1,17 @@
 package de.tfsw.temperature.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 import java.time.Instant;
 
 @SpringBootApplication
+@Slf4j
 public class TempserverApplication {
 
 	public static void main(final String[] args) {
@@ -18,8 +21,10 @@ public class TempserverApplication {
 	@Autowired
 	private TemperatureRepository repo;
 
+	@Profile("localtest")
 	@Bean
 	public CommandLineRunner testDataCreator() {
+		log.info("Creating test data for active profile localtest");
 		return args -> {
 			Instant now = Instant.now();
 
