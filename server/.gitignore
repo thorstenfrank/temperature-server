@@ -7,3 +7,11 @@
 **/.project
 **/.classpath
 .settings/
+
+# IntelliJ IDEA
+/.idea
+/*.iml
+
+# Vaadin generated style sheets
+**/addons.scss
+**/styles.css
