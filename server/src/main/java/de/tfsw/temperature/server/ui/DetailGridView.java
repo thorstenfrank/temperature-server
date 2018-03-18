@@ -30,7 +30,7 @@ public class DetailGridView extends VerticalLayout implements View {
             new TimeFrame("2 hours", Duration.ofHours(2)),
             new TimeFrame("Last hour", Duration.ofHours(1)),
             new TimeFrame("30 minutes", Duration.ofMinutes(30)),
-            new TimeFrame("15 minutest", Duration.ofMinutes(15)),
+            new TimeFrame("15 minutes", Duration.ofMinutes(15)),
     };
 
     private TemperatureService service;
