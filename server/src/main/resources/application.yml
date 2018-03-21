@@ -1,12 +1,20 @@
-# Default settings
+### Default settings
 
 # Vaadin debug mode is disabled by default
 vaadin.servlet.productionMode: true
 
+spring:
+  application:
+    name: Temperature Server
+
 # Flyway DB migrations are disabled by default for in-memory H2 support
 # When using other datasources, this needs to be enabled specifically
-spring:
   flyway.enabled: false
+
+# Info Endpoint
+info:
+  service: @project.name@
+  version: @project.version@
 
 # Postgres DB
 ---
