@@ -31,6 +31,9 @@ java -Dserver.port=8081 -jar temperature-server-<version>.jar
 
 ## Usage
 
+Browsing to `http://localhost:8080/` (or whichever port you chose) will open the Vaadin-based UI showing the current
+temperature readings available.
+
 To add a new measurement point:
 
 `HTTP POST /temperature/<name>?value=<value>`
@@ -55,12 +58,15 @@ which will return a JSON like this:
 
 You can view all stored measurements using `HTTP GET /temperature` which will return the same JSON structure.
 
-Alternatively you can use your browser and just go to `http://localhost:8080/` to see the current temperatures.
-
 ## Data Storage Options
 
 By default, the server will use an in-memory database provider (H2) that will run out-of-the-box. Of course that means
-any saved data will not survive a server restart. There are options, however. Please refer to the [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config) for ways to change any configuration properties to suit your specific setup.
+any saved data will not survive a server restart.
+
+There are options, however. Please refer to the [Spring Boot documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config) for ways to change any configuration properties to suit your specific setup.
+
+Note that all the relational storage options below use `Flyway` to set up the database tables on application startup.
+Refer to the specific section for other requirements.
 
 ### Postgresql
 
@@ -78,3 +84,8 @@ spring:
 ```
 
 You will need to create the `temperature` database before running the server, since Postgres does not support automatic creation upon connection.
+
+### MariaDB
+
+An existing MariaDB 10 can be used as the data store with the `spring.profiles.active=mariadb` option. By default a
+database named `temperature` is used, which are also the default user and password. 
